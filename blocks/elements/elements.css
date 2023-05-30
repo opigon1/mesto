@@ -1,5 +1,6 @@
 .elements {
   margin-bottom: 67px;
+  margin-top: 36px;
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
   column-gap: 17px;
@@ -7,4 +8,10 @@
   padding: 0;
   list-style: none;
   justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .elements {
+    margin-bottom: 48px;
+  }
 }
