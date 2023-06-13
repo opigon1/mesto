@@ -23,58 +23,27 @@
     </section>
     <section class="elements-section">
       <ul class="elements">
-        <li class="element">
-          <img class="element__img" src="./images/karchevsk.jpg" alt="пейзаж">
-          <div class="element__discription">
-            <h2 class="element__name">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__img" src="./images/elbus.jpg" alt="пейзаж">
-          <div class="element__discription">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__img" src="./images/dombay.jpg" alt="пейзаж">
-          <div class="element__discription">
-            <h2 class="element__name">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__img" src="./images/elbus.jpg" alt="пейзаж">
-          <div class="element__discription">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__img" src="./images/dombay.jpg" alt="пейзаж">
-          <div class="element__discription">
-            <h2 class="element__name">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__img" src="./images/karchevsk.jpg" alt="место">
-          <div class="element__discription">
-            <h2 class="element__name">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </li>
+        
       </ul>
+      <template id="elements-template">
+        <li class="element">
+          <img class="element__img" src="#" alt="картинка пользователя">
+          <div class="element__discription">
+            <h2 class="element__name"></h2>
+            <button class="element__like" type="button"></button>
+            <button class="element__delete" type="button"></button>
+          </div>
+        </li>
+      </template>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" action="#" name="form">
+      <form class="popup__form popup__form_type_edit" action="#" name="form">
         <label class="popup__label" for="name">
           <input class="popup__input popup__input_type_name" name="name" type="text" id="name" value="Жак-Ив Кусто">
         </label>
@@ -86,6 +55,21 @@
       <button class="popup__closed" type="button"></button>
     </div>
   </div>
-  <script src="./scripts/index.js"></script>
+  <div class="popup popup_type_add">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form popup__add-form" action="#" name="form">
+        <label class="popup__label" for="name">
+          <input class="popup__input popup__add-imput-name" name="name" type="text" id="name" value="" placeholder="Название">
+        </label>
+        <label class="popup__label" for="status">
+          <input class="popup__input popup__add-imput-link" name="status" type="text" id="status" value="" placeholder="Ссылка на картинку">
+        </label>
+        <button class="popup__submit popup__add-submit" type="submit">Создать</button>
+      </form>
+      <button class="popup__closed" type="button"></button>
+    </div>
+  </div>
+  <script src="./scripts/index.js" defer></script>
 </body>
 </html>
