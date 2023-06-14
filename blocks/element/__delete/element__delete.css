@@ -10,4 +10,9 @@
   width: 18px;
   border: 0;
   cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.element__delete:hover {
+  opacity: 0.6;
 }

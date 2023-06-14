@@ -27,7 +27,7 @@
       </ul>
       <template id="elements-template">
         <li class="element">
-          <img class="element__img" src="#" alt="картинка пользователя">
+          <img class="element__img" src="#" alt="Изображение пользователя">
           <div class="element__discription">
             <h2 class="element__name"></h2>
             <button class="element__like" type="button"></button>
@@ -40,6 +40,7 @@
   <footer class="footer">
     <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
   </footer>
+
   <div class="popup popup_type_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -55,6 +56,7 @@
       <button class="popup__closed" type="button"></button>
     </div>
   </div>
+
   <div class="popup popup_type_add">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
@@ -68,6 +70,16 @@
         <button class="popup__submit popup__add-submit" type="submit">Создать</button>
       </form>
       <button class="popup__closed" type="button"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_img">
+    <div class="popup__container-image">
+      <button class="popup__closed" type="button"></button>
+      <figure class="popup__image-container">
+        <img class="popup__image" src="#" alt="Изображение пользователя">
+        <figcaption class="popup__text">Картинка</figcaption>
+      </figure>
     </div>
   </div>
   <script src="./scripts/index.js" defer></script>

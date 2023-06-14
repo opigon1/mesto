@@ -1,6 +1,7 @@
 const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
+
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
 const popupFopmEdit = document.querySelector('.popup__form_type_edit')
@@ -9,37 +10,36 @@ const popupInputStatus = document.querySelector('.popup__input_type_status');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-function fillProfile() {
+function fillProfile() { //Заполнение профиля
   profileName.textContent = popupInputName.value;
   profileStatus.textContent = popupInputStatus.value;
 }
 
-function fillProfileInput() {
+function fillProfileInput() { //Открытие профиля редактирования
   popupInputName.value = profileName.textContent;
   popupInputStatus.value = profileStatus.textContent;
   eventPopupOpen(popupEdit);
 }
 
-function eventPopupOpen(modal) {
+function eventPopupOpen(modal) { //Открытие попапа
   modal.classList.add('popup_opened');
 }
 
-function eventPopupClose(modal) {
+function eventPopupClose(modal) { //Закрытие попапа
   modal.classList.remove('popup_opened');
 }
 
-popups.forEach(popup => {
+popups.forEach(popup => { //Закрытие попапа на крестик
     const btnClose = popup.querySelector('.popup__closed');
     btnClose.addEventListener('click', () => eventPopupClose(popup))
   })
 
-popupFopmEdit.addEventListener('submit', function (event) {
+popupFopmEdit.addEventListener('submit', function (event) { //Отправка формы редактирования
   event.preventDefault();
   fillProfile();
   eventPopupClose(popupEdit);
 });
 
-// closedButton.addEventListener('click', handleClosePopupClick);
 addButton.addEventListener('click', () => eventPopupOpen(popupAdd));
 editButton.addEventListener('click', fillProfileInput);
  
@@ -81,27 +81,40 @@ const templateElement = document.querySelector('#elements-template').content.que
 
 
 
-function createCard(element) {
+function createCard(element) { //Создание карточек
   const cardElement = templateElement.cloneNode(true);
   const cardName = cardElement.querySelector('.element__name');
   const cardImage = cardElement.querySelector('.element__img');
   const cardDelete = cardElement.querySelector('.element__delete');
   const cardLike = cardElement.querySelector('.element__like');
+
   cardImage.src = element.link;
   cardName.textContent = element.name;
 
-  cardDelete.addEventListener('click', function() {
+  cardDelete.addEventListener('click', function() { //Удаление карточек
     cardElement.remove()
   })
 
-  cardLike.addEventListener('click', function() {
+  cardLike.addEventListener('click', function() { //Лайк карточек
     cardLike.classList.toggle('element__like_active')
   });
+
+  cardImage.addEventListener('click', function() { //Открытие попапа с карточкой
+    const popupImage = document.querySelector('.popup_type_img');
+    const popupImageText = document.querySelector('.popup__text');
+    const popupImagePic = document.querySelector('.popup__image');
+    
+
+    popupImagePic.src =  cardImage.src;
+    popupImageText.textContent = cardName.textContent
+
+    eventPopupOpen(popupImage);
+  })
 
   return cardElement;
 };
 
-function renderCard(data, container, position = 'prepend') {
+function renderCard(data, container, position = 'prepend') { //Отрисовка карточек
   
   switch (position) {
     case "append":
