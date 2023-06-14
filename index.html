@@ -25,16 +25,7 @@
       <ul class="elements">
         
       </ul>
-      <template id="elements-template">
-        <li class="element">
-          <img class="element__img" src="#" alt="Изображение пользователя">
-          <div class="element__discription">
-            <h2 class="element__name"></h2>
-            <button class="element__like" type="button"></button>
-            <button class="element__delete" type="button"></button>
-          </div>
-        </li>
-      </template>
+      
     </section>
   </main>
   <footer class="footer">
@@ -60,14 +51,14 @@
   <div class="popup popup_type_add">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form popup__add-form" action="#" name="form">
+      <form class="popup__form popup__form_type_add" action="#" name="form">
         <label class="popup__label" for="card-name">
-          <input class="popup__input popup__add-imput-name" name="card-name" type="text" id="card-name" value="" placeholder="Название">
+          <input class="popup__input popup__input_type_card-name" name="card-name" type="text" id="card-name" value="" placeholder="Название">
         </label>
         <label class="popup__label" for="link">
-          <input class="popup__input popup__add-imput-link" name="link" type="text" id="link" value="" placeholder="Ссылка на картинку">
+          <input class="popup__input popup__input_type_link" name="link" type="text" id="link" value="" placeholder="Ссылка на картинку">
         </label>
-        <button class="popup__submit popup__add-submit" type="submit">Создать</button>
+        <button class="popup__submit popup__submit_type_add" type="submit">Создать</button>
       </form>
       <button class="popup__closed" type="button"></button>
     </div>
@@ -82,6 +73,18 @@
       </figure>
     </div>
   </div>
-  <script src="./scripts/index.js" defer></script>
+
+  <template id="elements-template">
+    <li class="element">
+      <img class="element__img" src="#" alt="Изображение пользователя">
+      <div class="element__discription">
+        <h2 class="element__name"></h2>
+        <button class="element__like" type="button"></button>
+        <button class="element__delete" type="button"></button>
+      </div>
+    </li>
+  </template>
+  <script src="./scripts/cards.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

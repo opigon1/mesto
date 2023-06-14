@@ -18,66 +18,44 @@ function fillProfile() { //Заполнение профиля
 function fillProfileInput() { //Открытие профиля редактирования
   popupInputName.value = profileName.textContent;
   popupInputStatus.value = profileStatus.textContent;
-  eventPopupOpen(popupEdit);
+  handlePopupOpen(popupEdit);
 }
 
-function eventPopupOpen(modal) { //Открытие попапа
+function handlePopupOpen(modal) { //Открытие попапа
   modal.classList.add('popup_opened');
 }
 
-function eventPopupClose(modal) { //Закрытие попапа
+function handlePopupClose(modal) { //Закрытие попапа
   modal.classList.remove('popup_opened');
 }
 
 popups.forEach(popup => { //Закрытие попапа на крестик
     const btnClose = popup.querySelector('.popup__closed');
-    btnClose.addEventListener('click', () => eventPopupClose(popup))
+    btnClose.addEventListener('click', () => handlePopupClose(popup))
   })
 
 popupFopmEdit.addEventListener('submit', function (event) { //Отправка формы редактирования
   event.preventDefault();
   fillProfile();
-  eventPopupClose(popupEdit);
+  handlePopupClose(popupEdit);
 });
 
-addButton.addEventListener('click', () => eventPopupOpen(popupAdd));
+addButton.addEventListener('click', () => handlePopupOpen(popupAdd));
 editButton.addEventListener('click', fillProfileInput);
  
  
 
-const initialCards = [ //массив с карточками
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
-const addFormElement = document.querySelector('.popup__add-form');
-const addButtonSubmitElement = document.querySelector('.popup__add-submit');
-const addInputNameElement = document.querySelector('.popup__add-imput-name');
-const addInputLinkElement = document.querySelector('.popup__add-imput-link');
+
+const addFormElement = document.querySelector('.popup__form_type_add');
+const addButtonSubmitElement = document.querySelector('.popup__submit_type_add');
+const addInputNameElement = document.querySelector('.popup__input_type_card-name');
+const addInputLinkElement = document.querySelector('.popup__input_type_link');
 const cardListElement = document.querySelector('.elements');
 const templateElement = document.querySelector('#elements-template').content.querySelector('.element')
+const popupImage = document.querySelector('.popup_type_img');
+const popupImageText = document.querySelector('.popup__text');
+const popupImagePic = document.querySelector('.popup__image');
 
 
 
@@ -89,6 +67,7 @@ function createCard(element) { //Создание карточек
   const cardLike = cardElement.querySelector('.element__like');
 
   cardImage.src = element.link;
+  cardImage.alt = element.name
   cardName.textContent = element.name;
 
   cardDelete.addEventListener('click', function() { //Удаление карточек
@@ -100,15 +79,11 @@ function createCard(element) { //Создание карточек
   });
 
   cardImage.addEventListener('click', function() { //Открытие попапа с карточкой
-    const popupImage = document.querySelector('.popup_type_img');
-    const popupImageText = document.querySelector('.popup__text');
-    const popupImagePic = document.querySelector('.popup__image');
-    
-
     popupImagePic.src =  cardImage.src;
+    popupImagePic.alt = cardName.textContent
     popupImageText.textContent = cardName.textContent
 
-    eventPopupOpen(popupImage);
+    handlePopupOpen(popupImage);
   })
 
   return cardElement;
@@ -140,8 +115,9 @@ function handleSubmitAdd(e) {
     link: addInputLinkElement.value
   }
 
-  renderCard(data, cardListElement,)
-  eventPopupClose(popupAdd)
+  addFormElement.reset()
+  renderCard(data, cardListElement)
+  handlePopupClose(popupAdd)
 }
 
 addFormElement.addEventListener('submit', handleSubmitAdd)
