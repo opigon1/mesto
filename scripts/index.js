@@ -1,7 +1,6 @@
 const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
-
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
 const popupFopmEdit = document.querySelector('.popup__form_type_edit')
@@ -29,10 +28,22 @@ function handlePopupClose(modal) { //Закрытие попапа
   modal.classList.remove('popup_opened');
 }
 
-popups.forEach(popup => { //Закрытие попапа на крестик
-    const btnClose = popup.querySelector('.popup__closed');
-    btnClose.addEventListener('click', () => handlePopupClose(popup))
+popups.forEach(popup => { //Закрытие попапа на крестик, кнопку ESC и на оверлэй
+  const btnClose = popup.querySelector('.popup__closed');
+  btnClose.addEventListener('click', () => handlePopupClose(popup));
+
+  popup.addEventListener('click', (evt) => { 
+    if (evt.target.classList.contains('popup_opened')) {
+      handlePopupClose(popup); 
+    }
   })
+
+  document.addEventListener('keydown', (evt) => { 
+    if (evt.key === 'Escape') {
+      handlePopupClose(popup); 
+    }
+  })
+})
 
 popupFopmEdit.addEventListener('submit', function (event) { //Отправка формы редактирования
   event.preventDefault();
@@ -42,11 +53,9 @@ popupFopmEdit.addEventListener('submit', function (event) { //Отправка �
 
 addButton.addEventListener('click', () => handlePopupOpen(popupAdd));
 editButton.addEventListener('click', fillProfileInput);
+
  
  
-
-
-
 const addFormElement = document.querySelector('.popup__form_type_add');
 const addButtonSubmitElement = document.querySelector('.popup__submit_type_add');
 const addInputNameElement = document.querySelector('.popup__input_type_card-name');

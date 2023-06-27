@@ -1,4 +1,5 @@
 .popup__label {
+  position: relative;
   max-width: 358px;
   width: 100%;
 }
