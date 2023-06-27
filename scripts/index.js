@@ -14,7 +14,7 @@ function fillProfile() { //Заполнение профиля
   profileStatus.textContent = popupInputStatus.value;
 }
 
-function fillProfileInput() { //Открытие профиля редактирования
+function openProfilePopup() { //Открытие профиля редактирования
   popupInputName.value = profileName.textContent;
   popupInputStatus.value = profileStatus.textContent;
   handlePopupOpen(popupEdit);
@@ -22,10 +22,19 @@ function fillProfileInput() { //Открытие профиля редактир
 
 function handlePopupOpen(modal) { //Открытие попапа
   modal.classList.add('popup_opened');
+  document.addEventListener('keydown', closedPopupByEsc);
 }
 
 function handlePopupClose(modal) { //Закрытие попапа
   modal.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closedPopupByEsc);
+}
+
+function closedPopupByEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector('.popup_opened');
+    handlePopupClose(popupOpened)
+  }
 }
 
 popups.forEach(popup => { //Закрытие попапа на крестик, кнопку ESC и на оверлэй
@@ -34,12 +43,6 @@ popups.forEach(popup => { //Закрытие попапа на крестик, �
 
   popup.addEventListener('click', (evt) => { 
     if (evt.target.classList.contains('popup_opened')) {
-      handlePopupClose(popup); 
-    }
-  })
-
-  document.addEventListener('keydown', (evt) => { 
-    if (evt.key === 'Escape') {
       handlePopupClose(popup); 
     }
   })
@@ -52,7 +55,7 @@ popupFopmEdit.addEventListener('submit', function (event) { //Отправка �
 });
 
 addButton.addEventListener('click', () => handlePopupOpen(popupAdd));
-editButton.addEventListener('click', fillProfileInput);
+editButton.addEventListener('click', openProfilePopup);
 
  
  
@@ -113,7 +116,7 @@ function renderCard(data, container, position = 'prepend') { //Отрисовк�
 }
 
 initialCards.forEach(function(data) {
-  renderCard(data, cardListElement,)
+  renderCard(data, cardListElement,'append')
 });
 
 function handleSubmitAdd(e) {
@@ -125,6 +128,7 @@ function handleSubmitAdd(e) {
   }
 
   addFormElement.reset()
+  disabledButton(addButtonSubmitElement, validateConfig)
   renderCard(data, cardListElement)
   handlePopupClose(popupAdd)
 }
