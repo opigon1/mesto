@@ -73,6 +73,7 @@ export class FormValidator {
         this.#toggleButtonState(this.#formElement.checkValidity());
       });
     })
+
   }
 
   enableValidation() {

@@ -2,21 +2,26 @@ export class Card {
   #data;
   #cardElement;
   #elementsTemplate;
-  #handleCardDelete;
-  #handleCardLike;
   #openPopupImg;
 
-  constructor({data, handleCardDelete, handleCardLike, openPopupImg}, elementsTemplate) {
+  constructor({data, openPopupImg}, elementsTemplate) {
     this.#data = data;
     this.#elementsTemplate = elementsTemplate;
-    this.#handleCardDelete = handleCardDelete;
-    this.#handleCardLike = handleCardLike;
     this.#openPopupImg = openPopupImg;
+    
   }
 
   #getTemplate() {
     return document.querySelector(this.#elementsTemplate).
            content.querySelector('.element').cloneNode(true); 
+  }
+
+  #handleCardDelete(cardElement) { //Удаление карточки
+    cardElement.remove()
+  }
+  
+  #handleCardLike(cardLike) { //Лайк катрочки
+    cardLike.classList.toggle('element__like_active');
   }
 
   #setEventListeners() {
@@ -32,13 +37,8 @@ export class Card {
     cardImage.alt = this.#data.name
     cardName.textContent = this.#data.name;
 
-    cardDelete.addEventListener('click', () => {
-      this.#handleCardDelete(this.#cardElement)
-    });
-
-    cardLike.addEventListener('click', () => {
-      this.#handleCardLike(cardLike)
-    });
+    cardDelete.addEventListener('click', () => this.#handleCardDelete(this.#cardElement));
+    cardLike.addEventListener('click', () => this.#handleCardLike(cardLike));
   
     cardImage.addEventListener('click', () => {
       this.#openPopupImg(popupImagePic, cardImage, popupImageText, cardName)

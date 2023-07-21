@@ -1,32 +1,7 @@
 import { Card } from "./Card.js";
+import {initialCards} from "./cardArr.js";
 import { FormValidator } from "./FormValidator.js";
 
-const initialCards = [ //массив с карточками
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const validateConfig = { //Конфиг для валидации
   formSelector: '.popup__form',
@@ -99,14 +74,6 @@ popupFopmEdit.addEventListener('submit', function (event) { //Отправка �
   handlePopupClose(popupEdit);
 });
 
-function handleCardDelete(cardElement) { //Удаление карточки
-  cardElement.remove()
-}
-
-function handleCardLike(cardLike) { //Лайк катрочки
-  cardLike.classList.toggle('element__like_active');
-}
-
 function openPopupImg(popupImagePic, cardImage, popupImageText, cardName) {
   popupImagePic.src =  cardImage.src;
   popupImagePic.alt = cardName.textContent
@@ -116,7 +83,7 @@ function openPopupImg(popupImagePic, cardImage, popupImageText, cardName) {
 }
 
 function renderCard(data, container, position = 'prepend') { //Отрисовка карточек
-  const cardElement = new Card({data, handleCardDelete, handleCardLike, openPopupImg}, '#elements-template').createCard();
+  const cardElement = new Card({data, openPopupImg}, '#elements-template').createCard();
 
   switch (position) {
     case "append":
@@ -143,7 +110,7 @@ function handleSubmitAdd(e) {
   }
 
   addFormElement.reset();
-  AddCardFormValidators.enableValidation();
+  addCardFormValidators.disabledButton(addButtonSubmitElement);
   renderCard(data, cardListElement);
   handlePopupClose(popupAdd);
 }
@@ -152,8 +119,8 @@ addFormElement.addEventListener('submit', handleSubmitAdd);
 addButton.addEventListener('click', () => handlePopupOpen(popupAdd));
 editButton.addEventListener('click', openProfilePopup);
 
-const ProfileFormValidators = new FormValidator(validateConfig, popupFopmEdit);
-ProfileFormValidators.enableValidation();
+const profileFormValidators = new FormValidator(validateConfig, popupFopmEdit);
+profileFormValidators.enableValidation();
 
-const AddCardFormValidators = new FormValidator(validateConfig, addFormElement);
-AddCardFormValidators.enableValidation();
+const addCardFormValidators = new FormValidator(validateConfig, addFormElement);
+addCardFormValidators.enableValidation();
