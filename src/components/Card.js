@@ -2,13 +2,13 @@ export class Card {
   #data;
   #cardElement;
   #elementsTemplate;
-  #openPopupImg;
+  #handleCardClick;
+  
 
-  constructor({data, openPopupImg}, elementsTemplate) {
+  constructor({ data, elementsTemplate, handleCardClick }) {
     this.#data = data;
     this.#elementsTemplate = elementsTemplate;
-    this.#openPopupImg = openPopupImg;
-    
+    this.handleCardClick = handleCardClick;
   }
 
   #getTemplate() {
@@ -30,19 +30,14 @@ export class Card {
     const cardImage = this.#cardElement.querySelector('.element__img');
     const cardDelete = this.#cardElement.querySelector('.element__delete');
     const cardLike = this.#cardElement.querySelector('.element__like');
-    const popupImagePic = document.querySelector('.popup__image');
-    const popupImageText = document.querySelector('.popup__text');
-
+    
     cardImage.src = this.#data.link;
     cardImage.alt = this.#data.name
     cardName.textContent = this.#data.name;
 
     cardDelete.addEventListener('click', () => this.#handleCardDelete(this.#cardElement));
     cardLike.addEventListener('click', () => this.#handleCardLike(cardLike));
-  
-    cardImage.addEventListener('click', () => {
-      this.#openPopupImg(popupImagePic, cardImage, popupImageText, cardName)
-    });
+    cardImage.addEventListener('click', () => this.handleCardClick())
   }
   
   createCard(){ //Создание карточек
