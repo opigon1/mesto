@@ -9,16 +9,16 @@ export class PopupWithForm extends Popup {
   constructor(popupSelector, { submitCallback }) {
     super(popupSelector);
     this.#submitCallback = submitCallback;
-    this.#form = popupSelector.querySelector('.popup__form');
+    this.#form = this.popupSelector.querySelector('.popup__form');
     this.#inputList = Array.from(this.#form.querySelectorAll('.popup__input'))
   }
 
   #getInputValues() {
-    this.#formValues = {};
+    const formValues = {};
     this.#inputList.forEach(input => {
-      this.#formValues[input.name] = input.value
+      formValues[input.name] = input.value
     })
-    return this.#formValues;
+    return formValues;
   };
   
   close() {

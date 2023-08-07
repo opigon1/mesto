@@ -31,6 +31,9 @@
   <li>Адаптивная вёрстка</li>
   <li>@Media</li>
   <li>JavaScript</li>
+  <li>ООП</li>
+  <li>ES6 Modules</li>
+  <li>Webpack</li>
 </ul>
 <hr>
 Реализованы простые функции JS

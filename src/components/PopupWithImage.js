@@ -8,8 +8,8 @@ export class PopupWithImage extends Popup {
 
   constructor(popupSelector) {
     super(popupSelector);
-    this.#popupImagePic = document.querySelector('.popup__image');
-    this.#popupImageText = document.querySelector('.popup__text');
+    this.#popupImagePic = this.popupSelector.querySelector('.popup__image');
+    this.#popupImageText = this.popupSelector.querySelector('.popup__text');
   }
 
   open(item) {

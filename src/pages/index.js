@@ -1,6 +1,6 @@
 import './index.css';
 import { Card } from "../components/Card.js";
-import { initialCards } from "../components/cardArr.js";
+import { initialCards } from "../utils/cardArr.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
@@ -31,13 +31,13 @@ const addButtonSubmitElement = document.querySelector('.popup__submit_type_add')
 const cardListElement = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_type_img');
 
-const newPopupImage = new PopupWithImage(popupImage)
+const newPopupImage = new PopupWithImage('.popup_type_img')
 const userInfo = new UserInfo({
-  profileName,
-  profileStatus,
+  profileName: '.profile__name',
+  profileStatus: '.profile__status'
 })
 
-const popupEditForm = new PopupWithForm(popupEdit, {
+const popupEditForm = new PopupWithForm('.popup_type_edit', {
   submitCallback: (formData) => {
     userInfo.setUsetInfo({
       profileName: formData.nameProfile,
@@ -47,14 +47,13 @@ const popupEditForm = new PopupWithForm(popupEdit, {
   }
 })
   
-const popupAddForm = new PopupWithForm(popupAdd, {
+const popupAddForm = new PopupWithForm('.popup_type_add', {
     submitCallback: (formData) => {
-    cards.setItem(createCard({
+    cards.addItem(createCard({
       name: formData.cardName,
       link: formData.cardLink
     }));
     popupAddForm.close()
-    addCardFormValidators.disabledButton(addButtonSubmitElement);
   }
 })
 
@@ -62,9 +61,7 @@ function createCard(item) {
   const card = new Card({
     data: item,
     elementsTemplate: '#elements-template',
-    handleCardClick: () => {
-      newPopupImage.open(item)
-    }
+    handleCardClick: (name, link) => newPopupImage.open({name, link})
   });
   const cardElement = card.createCard()
   return cardElement
@@ -73,9 +70,9 @@ function createCard(item) {
 const cards = new Section({
   data: initialCards,
   renderer: (item) => {
-    cards.setItem(createCard(item));
+    cards.addItem(createCard(item));
   }
-}, cardListElement)
+}, '.elements')
 
 cards.renderItems();
 
@@ -87,7 +84,8 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click', () => {
-  popupAddForm.open()
+  popupAddForm.open();
+  addCardFormValidators.disabledButton();
 });
 
 newPopupImage.setEventListeners()

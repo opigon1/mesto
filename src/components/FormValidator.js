@@ -38,14 +38,14 @@ export class FormValidator {
     this.#getErrorElement(inputElement).classList.add(this.#errorClass)
   }
 
-  disabledButton(buttonElement) {
-    buttonElement.classList.add(this.#inactiveButtonClass);
-    buttonElement.disabled = true;
+  disabledButton() {
+    this.#buttonElement.classList.add(this.#inactiveButtonClass);
+    this.#buttonElement.disabled = true;
   }
 
-  #enabledButton(buttonElement) {
-    buttonElement.classList.remove(this.#inactiveButtonClass);
-    buttonElement.disabled = false;
+  #enabledButton() {
+    this.#buttonElement.classList.remove(this.#inactiveButtonClass);
+    this.#buttonElement.disabled = false;
   }
 
   #checkInputValidity(inputElement) {
@@ -58,9 +58,9 @@ export class FormValidator {
 
   #toggleButtonState(isActive) {
     if(!isActive) {
-      this.disabledButton(this.#buttonElement)
+      this.disabledButton()
     } else {
-      this.#enabledButton(this.#buttonElement)
+      this.#enabledButton()
     }
   }
 

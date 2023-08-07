@@ -6,10 +6,10 @@ export class Section {
   constructor({ data, renderer }, containerSelector) {
     this.#renderedItems = data;
     this.#renderer = renderer;
-    this.#container = containerSelector;
+    this.#container = document.querySelector(containerSelector);
   }
 
-  setItem(element) {
+  addItem(element) {
     this.#container.prepend(element);
   }
 
