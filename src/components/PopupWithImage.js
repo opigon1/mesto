@@ -5,11 +5,12 @@ export class PopupWithImage extends Popup {
   #popupImageText;
   #cardName;
   #cardImage;
+  #popup
 
   constructor(popupSelector) {
     super(popupSelector);
-    this.#popupImagePic = this.popupSelector.querySelector('.popup__image');
-    this.#popupImageText = this.popupSelector.querySelector('.popup__text');
+    this.#popupImagePic = document.querySelector('.popup__image');
+    this.#popupImageText = document.querySelector('.popup__text');
   }
 
   open(item) {

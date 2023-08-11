@@ -1,9 +1,10 @@
 export class Popup {
   #buttonClose;
+  #popup
 
   constructor(popupSelector) {
-    this.popupSelector = document.querySelector(popupSelector);
-    this.#buttonClose = this.popupSelector.querySelector('.popup__closed');
+    this.#popup = document.querySelector(popupSelector);
+    this.#buttonClose = this.#popup.querySelector('.popup__closed');
   }
 
   #closePopupByEsc = (evt) => {
@@ -19,12 +20,12 @@ export class Popup {
   };
 
   open() {
-    this.popupSelector.classList.add('popup_opened');
+    this.#popup.classList.add('popup_opened');
     document.addEventListener('keydown', this.#closePopupByEsc);
   }
 
   close() {
-    this.popupSelector.classList.remove('popup_opened');
+    this.#popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this.#closePopupByEsc);
   }
 
@@ -33,6 +34,6 @@ export class Popup {
       this.close();
     });
 
-    this.popupSelector.addEventListener('mousedown', this.#closePopupByOverlay.bind(this));
+    this.#popup.addEventListener('mousedown', this.#closePopupByOverlay.bind(this));
   }
 }

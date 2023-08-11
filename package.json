@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && webpack --mode production",
-    "dev": "webpack serve"
+    "predeploy": "npm run build",
+    "dev": "webpack serve",
+    "deploy": "gh-pages -d dist"
   },
   "author": "Stepan Rindin",
   "license": "ISC",
@@ -26,6 +28,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.3",
