@@ -4,15 +4,14 @@ export class PopupWithForm extends Popup {
   #submitCallback
   #form;
   #inputList;
-  #formValues;
-  #popup
+  #buttonSubmit;
 
   constructor(popupSelector, { submitCallback }) {
     super(popupSelector);
     this.#submitCallback = submitCallback;
-    this.#popup = document.querySelector(popupSelector);
-    this.#form = this.#popup.querySelector('.popup__form');
+    this.#form = this._popup.querySelector('.popup__form');
     this.#inputList = Array.from(this.#form.querySelectorAll('.popup__input'))
+    this.#buttonSubmit = this._popup.querySelector('.popup__submit')
   }
 
   setNewSubmitCallback(callBack) {
@@ -39,4 +38,20 @@ export class PopupWithForm extends Popup {
       this.#submitCallback(this.#getInputValues());
     })
   }
+
+  setSubmitButtonText(text) {
+    this.#buttonSubmit.textContent = text;
+} 
+
+  // setIsLoading(isLoading) {
+  //   if(isLoading) {
+  //     this.#buttonSubmit.textContent = 'Сохранение...'
+  //   }
+  //   else if (this.#popup.classList.contains('popup_type_add')) {
+  //     this.#buttonSubmit.textContent = 'Создать'
+  //   }
+  //   else {
+  //     this.#buttonSubmit.textContent = 'Сохранить'
+  //   }
+  // }
 }

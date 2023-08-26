@@ -1,27 +1,28 @@
 export class UserInfo {
-  #profileName;
-  #profileStatus;
-  #profileAvatar;
+  #profileNameSelector;
+  #profileStatusSelector;
+  #profileAvatarSelector;
 
-  constructor({profileName, profileStatus, profileAvatar}) {
-    this.#profileName = document.querySelector(profileName);
-    this.#profileStatus = document.querySelector(profileStatus);
-    this.#profileAvatar = document.querySelector(profileAvatar);
+  constructor({profileNameSelector, profileStatusSelector, profileAvatarSelector}) {
+    this.#profileNameSelector = document.querySelector(profileNameSelector);
+    this.#profileStatusSelector = document.querySelector(profileStatusSelector);
+    this.#profileAvatarSelector = document.querySelector(profileAvatarSelector);
   }
 
   getUserInfo() {
     return {
-      name: this.#profileName.textContent,
-      status: this.#profileStatus.textContent
+      name: this.#profileNameSelector.textContent,
+      status: this.#profileStatusSelector.textContent,
+      avatar: this.#profileAvatarSelector.textContent
     }
   };
 
   setUsetInfo(name, status) {
-    this.#profileName.textContent = name;
-    this.#profileStatus.textContent = status;
+    this.#profileNameSelector.textContent = name;
+    this.#profileStatusSelector.textContent = status;
   };
 
   setUserAvatar(avatar) {
-    this.#profileAvatar.src = avatar
+    this.#profileAvatarSelector.src = avatar
   }
 };

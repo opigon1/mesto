@@ -8,7 +8,6 @@ export class FormValidator {
   #formElement;
   #buttonElement;
   #inputList;
-  #errorElement;
 
   constructor(data, formElement) {
     this.#formSelector = data.formSelector;
@@ -28,22 +27,24 @@ export class FormValidator {
 
   #hideInputError(inputElement) {
     inputElement.classList.remove(this.#inputErrorClass);
-    this.#getErrorElement(inputElement).textContent = inputElement.validationMessage;
-    this.#getErrorElement(inputElement).classList.remove(this.#errorClass)
+    const errorElement = this.#getErrorElement(inputElement); 
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.remove(this.#errorClass)
   }
 
   #showInputError(inputElement) {
     inputElement.classList.add(this.#inputErrorClass);
-    this.#getErrorElement(inputElement).textContent = inputElement.validationMessage;
-    this.#getErrorElement(inputElement).classList.add(this.#errorClass)
+    const errorElement = this.#getErrorElement(inputElement); 
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this.#errorClass)
   }
 
-  disabledButton() {
+  disableButton() {
     this.#buttonElement.classList.add(this.#inactiveButtonClass);
     this.#buttonElement.disabled = true;
   }
 
-  #enabledButton() {
+  #enableButton() {
     this.#buttonElement.classList.remove(this.#inactiveButtonClass);
     this.#buttonElement.disabled = false;
   }
@@ -58,9 +59,9 @@ export class FormValidator {
 
   #toggleButtonState(isActive) {
     if(!isActive) {
-      this.disabledButton()
+      this.disableButton()
     } else {
-      this.#enabledButton()
+      this.#enableButton()
     }
   }
 

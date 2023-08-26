@@ -1,6 +1,5 @@
 import './index.css';
 import { Card } from "../components/Card.js";
-import { initialCards } from "../utils/cardArr.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
@@ -17,11 +16,6 @@ const validateConfig = { //Конфиг для валидации
   errorClass: 'popup__input-error_type_active'
 }
 
-const popupEdit = document.querySelector('.popup_type_edit');
-const popupAdd = document.querySelector('.popup_type_add');
-const deletePopup = document.querySelector('.popup_type_delete')
-const profileName = document.querySelector('.profile__name');
-const profileStatus = document.querySelector('.profile__status');
 const profileAvatar = document.querySelector('.profile__avatar-cover');
 const popupFopmEdit = document.querySelector('.popup__form_type_edit')
 const popupAvatarEdit = document.querySelector('.popup__form_type_avatar')
@@ -30,11 +24,6 @@ const popupInputStatus = document.querySelector('.popup__input_type_status');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const addFormElement = document.querySelector('.popup__form_type_add');
-const addButtonSubmitElement = document.querySelector('.popup__submit_type_add');
-const cardListElement = document.querySelector('.elements');
-const popupImage = document.querySelector('.popup_type_img');
-const likeElement = document.querySelector('.element__like')
-const deleteButton = document.querySelector('.element__delete')
 
 let userId = null;
 
@@ -50,14 +39,14 @@ api.getAllInfo()
     userId = userData._id
     userInfo.setUsetInfo(userData.name, userData.about)
     userInfo.setUserAvatar(userData.avatar)
-    cards.renderItems(cardData)
+    cardsSection.renderItems(cardData)
   })
   .catch((err) => console.log(err));
 
 // Отрисовка карточек с сервера
 
-const cards = new Section((item) => {
-  cards.addItem(createCard(item), 'append');
+const cardsSection = new Section((item) => {
+  cardsSection.appendItem(createCard(item));
 }
 , '.elements')
 
@@ -65,9 +54,9 @@ const cards = new Section((item) => {
 
 const newPopupImage = new PopupWithImage('.popup_type_img')
 const userInfo = new UserInfo({
-  profileName: '.profile__name',
-  profileStatus: '.profile__status',
-  profileAvatar: '.profile__avatar'
+  profileNameSelector: '.profile__name',
+  profileStatusSelector: '.profile__status',
+  profileAvatarSelector: '.profile__avatar'
 })
 
 // Удаление карточки
@@ -84,7 +73,7 @@ const deleteCardPopup = new PopupWithForm('.popup_type_delete',{
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', {
   submitCallback: (formData) => {
-    popupEditForm.loadingMessage(true)
+    popupEditForm.setSubmitButtonText("Сохранение...")
     api.editUserInfo(formData)
     .then(() => {
       userInfo.setUsetInfo(formData.name, formData.about)
@@ -92,7 +81,7 @@ const popupEditForm = new PopupWithForm('.popup_type_edit', {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      popupEditForm.loadingMessage(false)
+      popupEditForm.setSubmitButtonText("Сохранить")
     })
   }
   }
@@ -102,15 +91,15 @@ const popupEditForm = new PopupWithForm('.popup_type_edit', {
   
 const popupAddForm = new PopupWithForm('.popup_type_add', {
   submitCallback: (formData) => {
-    popupAddForm.loadingMessage(true)
+    popupAddForm.setSubmitButtonText("Создание...")
     api.addCard(formData)
     .then((res) => {
-      cards.addItem(createCard(res), 'prepend');
+      cardsSection.prependItem(createCard(res));
       popupAddForm.close()
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      popupAddForm.loadingMessage(false)
+      popupAddForm.setSubmitButtonText("Создать")
     })
   }
 })
@@ -119,7 +108,7 @@ const popupAddForm = new PopupWithForm('.popup_type_add', {
 
 const popupEditAvatar = new PopupWithForm('.popup_type_avatar', {
   submitCallback: (formData) => {
-    popupEditAvatar.loadingMessage(true)
+    popupEditAvatar.setSubmitButtonText("Сохранение...")
     api.editUserAvatar(formData)
       .then(() => {
         userInfo.setUserAvatar(formData.avatar)
@@ -127,7 +116,7 @@ const popupEditAvatar = new PopupWithForm('.popup_type_avatar', {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        popupEditAvatar.loadingMessage(false)
+        popupEditAvatar.setSubmitButtonText("Сохранить")
       })
   }
 })
@@ -153,7 +142,7 @@ function handleCardClick(name, link) {
 
 function handleCardLike(data) {
   api.handleLikeCard(data.getId(), data.isLiked())
-    .then(newData => data.setLike(newData))
+    .then(newData => data.setLikes(newData))
     .catch((err) => console.log(err))
 }
 
@@ -180,12 +169,12 @@ editButton.addEventListener('click', () => {
 
 addButton.addEventListener('click', () => {
   popupAddForm.open();
-  addCardFormValidators.disabledButton();
+  addCardFormValidators.disableButton();
 });
 
 profileAvatar.addEventListener('click', () => {
   popupEditAvatar.open()
-  editAvatarFormValidator.disabledButton()
+  editAvatarFormValidator.disableButton()
 })
 
 newPopupImage.setEventListeners()

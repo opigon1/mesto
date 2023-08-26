@@ -3,15 +3,11 @@ import { Popup } from "../components/Popup.js";
 export class PopupWithImage extends Popup {
   #popupImagePic;
   #popupImageText;
-  #cardName;
-  #cardImage;
-  #popup;
 
   constructor(popupSelector) {
     super(popupSelector);
-    this.#popup = document.querySelector(popupSelector);
-    this.#popupImagePic = this.#popup.querySelector('.popup__image');
-    this.#popupImageText = this.#popup.querySelector('.popup__text');
+    this.#popupImagePic = this._popup.querySelector('.popup__image');
+    this.#popupImageText = this._popup.querySelector('.popup__text');
   }
 
   open(item) {
