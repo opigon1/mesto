@@ -24,6 +24,7 @@ const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
 const profileAvatar = document.querySelector('.profile__avatar-cover');
 const popupFopmEdit = document.querySelector('.popup__form_type_edit')
+const popupAvatarEdit = document.querySelector('.popup__form_type_avatar')
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputStatus = document.querySelector('.popup__input_type_status');
 const editButton = document.querySelector('.profile__edit-button');
@@ -44,15 +45,6 @@ const api = new Api("https://nomoreparties.co/v1/cohort-73/", {
   }
 });
 
-const deleteCardPopup = new PopupWithForm('.popup_type_delete',{
-  submitCallback: (_id) => {
-    api.deleteCard(_id)
-      .then(() => {})
-      .catch((err) => console.log(err))
-  }
-})
-deleteCardPopup.setEventListeners()
-
 api.getAllInfo()
   .then(([cardData, userData]) => {
     userId = userData._id
@@ -62,6 +54,15 @@ api.getAllInfo()
   })
   .catch((err) => console.log(err));
 
+// Отрисовка карточек с сервера
+
+const cards = new Section((item) => {
+  cards.addItem(createCard(item), 'append');
+}
+, '.elements')
+
+// Попап с картинкой
+
 const newPopupImage = new PopupWithImage('.popup_type_img')
 const userInfo = new UserInfo({
   profileName: '.profile__name',
@@ -69,10 +70,17 @@ const userInfo = new UserInfo({
   profileAvatar: '.profile__avatar'
 })
 
-const cards = new Section((item) => {
-  cards.addItem(createCard(item), 'append');
-}
-, '.elements')
+// Удаление карточки
+
+const deleteCardPopup = new PopupWithForm('.popup_type_delete',{
+  submitCallback: (_id) => {
+    api.deleteCard(_id)
+      .then(() => {})
+      .catch((err) => console.log(err))
+  }
+})
+
+// Редактирование профиля
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', {
   submitCallback: (formData) => {
@@ -89,6 +97,8 @@ const popupEditForm = new PopupWithForm('.popup_type_edit', {
   }
   }
 )
+
+// Создание карточки
   
 const popupAddForm = new PopupWithForm('.popup_type_add', {
   submitCallback: (formData) => {
@@ -105,6 +115,8 @@ const popupAddForm = new PopupWithForm('.popup_type_add', {
   }
 })
 
+// Редактирование аватара
+
 const popupEditAvatar = new PopupWithForm('.popup_type_avatar', {
   submitCallback: (formData) => {
     popupEditAvatar.loadingMessage(true)
@@ -119,6 +131,8 @@ const popupEditAvatar = new PopupWithForm('.popup_type_avatar', {
       })
   }
 })
+
+// Создание карточек
 
 function createCard(item) {
   const card = new Card({
@@ -155,6 +169,8 @@ function handleCardDelete(card) {
   })
 }
 
+// Установка слушателей попапов
+
 editButton.addEventListener('click', () => {
   const user = userInfo.getUserInfo();
   popupInputName.value = user.name
@@ -169,15 +185,22 @@ addButton.addEventListener('click', () => {
 
 profileAvatar.addEventListener('click', () => {
   popupEditAvatar.open()
+  editAvatarFormValidator.disabledButton()
 })
 
 newPopupImage.setEventListeners()
 popupEditForm.setEventListeners()
 popupAddForm.setEventListeners()
 popupEditAvatar.setEventListeners()
+deleteCardPopup.setEventListeners()
+
+// Валижация форм
 
 const profileFormValidators = new FormValidator(validateConfig, popupFopmEdit);
 profileFormValidators.enableValidation();
 
 const addCardFormValidators = new FormValidator(validateConfig, addFormElement);
 addCardFormValidators.enableValidation();
+
+const editAvatarFormValidator = new FormValidator(validateConfig, popupAvatarEdit);
+editAvatarFormValidator.enableValidation()
