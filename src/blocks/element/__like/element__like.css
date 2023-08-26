@@ -1,6 +1,7 @@
 .element__like {
   padding: 0;
   width: 22px;
+  height: 19px;
   background-image: url(../../../images/like.svg);
   background-color: white;
   background-repeat: no-repeat;

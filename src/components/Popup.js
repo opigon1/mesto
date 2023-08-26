@@ -1,10 +1,12 @@
 export class Popup {
   #buttonClose;
-  #popupSelector;
+  #popup;
+  #buttonSubmit
 
   constructor(popupSelector) {
-    this._popup = document.querySelector(popupSelector);
-    this.#buttonClose = this._popup.querySelector('.popup__closed');
+    this.#popup = document.querySelector(popupSelector);
+    this.#buttonClose = this.#popup.querySelector('.popup__closed');
+    this.#buttonSubmit = this.#popup.querySelector('.popup__submit')
   }
 
   #closePopupByEsc = (evt) => {
@@ -20,12 +22,12 @@ export class Popup {
   };
 
   open() {
-    this._popup.classList.add('popup_opened');
+    this.#popup.classList.add('popup_opened');
     document.addEventListener('keydown', this.#closePopupByEsc);
   }
 
   close() {
-    this._popup.classList.remove('popup_opened');
+    this.#popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this.#closePopupByEsc);
   }
 
@@ -34,6 +36,18 @@ export class Popup {
       this.close();
     });
 
-    this._popup.addEventListener('mousedown', this.#closePopupByOverlay.bind(this));
+    this.#popup.addEventListener('mousedown', this.#closePopupByOverlay.bind(this));
+  }
+
+  loadingMessage(isLoading) {
+    if(isLoading) {
+      this.#buttonSubmit.textContent = 'Сохранение...'
+    }
+    else if (this.#popup.classList.contains('popup_type_add')) {
+      this.#buttonSubmit.textContent = 'Создать'
+    }
+    else {
+      this.#buttonSubmit.textContent = 'Сохранить'
+    }
   }
 }
