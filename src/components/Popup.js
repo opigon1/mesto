@@ -20,7 +20,7 @@ export class Popup {
 
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', this._closePopupByEsc);
+    document.addEventListener('keydown', this.#closePopupByEsc);
   }
 
   close() {

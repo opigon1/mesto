@@ -41,17 +41,5 @@ export class PopupWithForm extends Popup {
 
   setSubmitButtonText(text) {
     this.#buttonSubmit.textContent = text;
-} 
-
-  // setIsLoading(isLoading) {
-  //   if(isLoading) {
-  //     this.#buttonSubmit.textContent = 'Сохранение...'
-  //   }
-  //   else if (this.#popup.classList.contains('popup_type_add')) {
-  //     this.#buttonSubmit.textContent = 'Создать'
-  //   }
-  //   else {
-  //     this.#buttonSubmit.textContent = 'Сохранить'
-  //   }
-  // }
+  } 
 }

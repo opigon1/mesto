@@ -7,21 +7,6 @@ export class Section {
     this.#container = document.querySelector(containerSelector);
   }
 
-  // addItem(element, position = 'prepend') {
-  //   switch (position) {
-  //     case 'append':
-  //       this.#container.append(element);
-  //       break;
-  //     case 'prepend':
-  //       this.#container.prepend(element);
-  //       break;
-    
-  //     default: this.#container.prepend(element);
-  //       break;
-  //   }
-    
-  // }
-
   appendItem(element) {
     this.#container.append(element);
   }
