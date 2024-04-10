@@ -1,5 +1,5 @@
 # Проект: Путешествие по России
-<img src="./images/mesto.png">
+<img src="./src/images/mesto.png">
 
 <a href="https://opigon1.github.io/mesto/">Ссылка GitPages</a>
 <h2>Описание</h2>
