@@ -1,4 +1,4 @@
-# Проект: Путешествие по России
+# Проект: Mesto
 <img src="./src/images/mesto.png">
 
 <a href="https://opigon1.github.io/mesto/">Ссылка GitPages</a>
